@@ -1,0 +1,8 @@
+name: UHC
+version: '${version}'
+main: fr.loris.gottagras.uhc.UHC
+api-version: 1.17
+prefix: UHC
+authors: [ 19HAuLit ]
+description: Plugin UHC 1.8.8
+website: 19h.xyz
