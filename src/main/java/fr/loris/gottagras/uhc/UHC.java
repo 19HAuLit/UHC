@@ -11,7 +11,7 @@ public final class UHC extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         server.MAX_PLAYERS.set(Bukkit.getMaxPlayers());
-        new world().autoGenerateUHC();
+        new world(this).autoGenerateUHC();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package fr.loris.gottagras.uhc.utils;
 
+import fr.loris.gottagras.uhc.UHC;
 import fr.loris.gottagras.uhc.infos.border;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,9 +10,13 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.Objects;
 
 public class world {
+    private UHC plugin;
+    public world(UHC plugin) {
+        this.plugin = plugin;
+    }
+
     public void autoGenerateUHC() {
         File uhcWorldFiles = new File(System.getProperty("user.dir") + "\\uhc-world");
         File uhcNetherFiles = new File(System.getProperty("user.dir") + "\\uhc-nether");
@@ -60,6 +65,8 @@ public class world {
         }
         float percentOcean = (float) (oceanBlocks / totalBlocks)*100;
         float percentCenter = (float) ((oceanCenterBlocks+jungleCenterBlocks+swamplandCenterBlocks)/centerBlocks)*100;
+        plugin.getLogger().info("Percent of Ocean: "+percentOcean);
+        plugin.getLogger().info("Percent of ocean, jungle, swampland on the center: "+percentCenter);
         return !(percentCenter > 30 || percentOcean > 30);
     }
 
