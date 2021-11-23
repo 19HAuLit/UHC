@@ -1,8 +1,16 @@
 name: UHC
 version: '${version}'
 main: fr.loris.gottagras.uhc.UHC
-api-version: 1.17
+api-version: 1.8
 prefix: UHC
 authors: [ 19HAuLit ]
 description: Plugin UHC 1.8.8
 website: 19h.xyz
+commands:
+  broadcast:
+    description: Commande permetant d'envoyer un message general
+    aliases:
+      - bc
+      - alert
+      - info
+    permission: broadcast.use
