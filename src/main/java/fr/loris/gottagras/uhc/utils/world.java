@@ -18,9 +18,9 @@ public class world {
     }
 
     public void autoGenerateUHC() {
-        File uhcWorldFiles = new File(System.getProperty("user.dir") + "\\uhc-world");
-        File uhcNetherFiles = new File(System.getProperty("user.dir") + "\\uhc-nether");
-        File uhcEndFiles = new File(System.getProperty("user.dir") + "\\uhc-end");
+        File uhcWorldFiles = new File(System.getProperty("user.dir") + "/uhc-world");
+        File uhcNetherFiles = new File(System.getProperty("user.dir") + "/uhc-nether");
+        File uhcEndFiles = new File(System.getProperty("user.dir") + "/uhc-end");
 
         new file().fileDelete(uhcWorldFiles);
         new file().fileDelete(uhcNetherFiles);
@@ -63,16 +63,17 @@ public class world {
                 }
             }
         }
-        float percentOcean = (float) (oceanBlocks / totalBlocks)*100;
-        float percentCenter = (float) ((oceanCenterBlocks+jungleCenterBlocks+swamplandCenterBlocks)/centerBlocks)*100;
-        plugin.getLogger().info("Percent of Ocean: "+percentOcean);
-        plugin.getLogger().info("Percent of ocean, jungle, swampland on the center: "+percentCenter);
-        return !(percentCenter > 30 || percentOcean > 30);
+        plugin.getLogger().info("Total blocks: "+totalBlocks);
+        plugin.getLogger().info("Block of Ocean: "+oceanBlocks);
+        plugin.getLogger().info("Total center blocks: "+centerBlocks);
+        plugin.getLogger().info("Block of ocean, jungle, swampland on the center: "+(oceanCenterBlocks+jungleCenterBlocks+swamplandCenterBlocks));
+        return oceanBlocks <= totalBlocks / 3 && (oceanCenterBlocks + jungleCenterBlocks + swamplandCenterBlocks) <= centerBlocks / 3;
     }
 
     public void unloadWorld(World world){
         for (Player player: Bukkit.getOnlinePlayers()){
             if (player.getWorld() == world) player.kickPlayer(ChatColor.RED+"Unloading world ("+world.getName()+").\nTry to reconnect!");
         }
+        Bukkit.unloadWorld(world, false);
     }
 }
