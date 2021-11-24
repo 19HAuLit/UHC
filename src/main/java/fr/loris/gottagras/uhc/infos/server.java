@@ -5,7 +5,8 @@ public enum server {
 
     private int value;
 
-    server(int i) {}
+    server(int i) {
+    }
 
     public int get() {
         return value;
