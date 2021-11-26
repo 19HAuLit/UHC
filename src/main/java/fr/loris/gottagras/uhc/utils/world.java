@@ -19,6 +19,10 @@ public class world {
     }
 
     public void autoGenerateUHC() {
+        unloadWorld(Bukkit.getWorld("uhc-world"));
+        unloadWorld(Bukkit.getWorld("uhc-nether"));
+        unloadWorld(Bukkit.getWorld("uhc-end"));
+
         File uhcWorldFiles = new File(System.getProperty("user.dir") + "/uhc-world");
         File uhcNetherFiles = new File(System.getProperty("user.dir") + "/uhc-nether");
         File uhcEndFiles = new File(System.getProperty("user.dir") + "/uhc-end");

@@ -24,7 +24,7 @@ public class playerJoinEvent implements Listener {
                 e.getPlayer().kickPlayer(ChatColor.RED + "Server is loading");
             case WAITING:
                 e.getPlayer().setGameMode(GameMode.SURVIVAL);
-                Location spawnLocation = new Location(Bukkit.getWorld("uhc-world"), 0, Bukkit.getWorld("uhc-world").getHighestBlockYAt(0, 0), 0);
+                Location spawnLocation = new Location(Bukkit.getWorld("world"), 0, Bukkit.getWorld("world").getHighestBlockYAt(0, 0), 0);
                 e.getPlayer().teleport(spawnLocation);
         }
     }
