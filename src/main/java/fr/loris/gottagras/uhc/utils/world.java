@@ -18,6 +18,18 @@ public class world {
         this.plugin = plugin;
     }
 
+    public void setWorldSettings(World world){
+        world.setGameRuleValue("doDaylightCycle", "false");
+        world.setGameRuleValue("doMobSpawning", "false");
+        world.setGameRuleValue("mobGriefing", "false");
+        world.setGameRuleValue("doFireTick", "false");
+        world.setTime(0);
+        world.setAmbientSpawnLimit(0);
+        world.setAnimalSpawnLimit(0);
+        world.setMonsterSpawnLimit(0);
+        world.setWaterAnimalSpawnLimit(0);
+    }
+
     public void autoGenerateUHC() {
         unloadWorld(Bukkit.getWorld("uhc-world"));
         unloadWorld(Bukkit.getWorld("uhc-nether"));
