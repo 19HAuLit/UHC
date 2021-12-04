@@ -12,9 +12,13 @@ public class registerEvents {
 
     public void run() {
         plugin.getServer().getPluginManager().registerEvents(new serverListPing(plugin), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new playerLogin(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerJoin(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerMove(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerInteract(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new blockBreak(plugin), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new entityDamage(plugin), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new playerDropItem(plugin), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new playerPickupItem(plugin), plugin);
     }
 }

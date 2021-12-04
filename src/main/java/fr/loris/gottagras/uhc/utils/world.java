@@ -2,10 +2,7 @@ package fr.loris.gottagras.uhc.utils;
 
 import fr.loris.gottagras.uhc.UHC;
 import fr.loris.gottagras.uhc.infos.border;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 
@@ -31,6 +28,10 @@ public class world {
     }
 
     public void autoGenerateUHC() {
+        for (Player player:Bukkit.getOnlinePlayers()){
+            player.kickPlayer(plugin.prefixMsg+ChatColor.RED+"Le serveur est en chargement, veuillez patienter !");
+        }
+
         unloadWorld(Bukkit.getWorld("uhc-world"));
         unloadWorld(Bukkit.getWorld("uhc-nether"));
         unloadWorld(Bukkit.getWorld("uhc-end"));
@@ -93,8 +94,9 @@ public class world {
 
     public void unloadWorld(World world) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getWorld() == world)
-                player.kickPlayer(ChatColor.RED + "Unloading world (" + world.getName() + ").\nTry to reconnect!");
+            if (player.getWorld() == world){
+                player.kickPlayer(plugin.prefixMsg+ChatColor.RED+"Le serveur est en chargement, veuillez patienter !");
+            }
         }
         Bukkit.unloadWorld(world, false);
     }
