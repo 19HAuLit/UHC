@@ -31,6 +31,6 @@ public class playerMove implements Listener {
             }
         }
         // ALLOW FLIGHT
-        e.getPlayer().setAllowFlight(e.getPlayer().getWorld()==plugin.spawnLocation.getWorld());
+        e.getPlayer().setAllowFlight(e.getPlayer().getWorld() == plugin.spawnLocation.getWorld());
     }
 }
