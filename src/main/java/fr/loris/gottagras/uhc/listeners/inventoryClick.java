@@ -26,6 +26,7 @@ public class inventoryClick implements Listener {
                         if (e.getClickedInventory().getName().equals(new teamGUI().inventory().getName())) {
                             if (e.getCurrentItem().getType() == Material.SIGN) {
                                 new team().addPlayerToTeamWithLimit(e.getSlot() + "", (Player) e.getWhoClicked());
+                                e.setCancelled(true);
                             }
                             e.getWhoClicked().openInventory(new teamGUI().inventory());
                         }
