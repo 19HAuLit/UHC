@@ -1,6 +1,7 @@
 package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
+import fr.loris.gottagras.uhc.gui.teamGUI;
 import fr.loris.gottagras.uhc.utils.resetPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,7 @@ public class playerJoin implements Listener {
             case WAITING:
                 new resetPlayer().resetAll(e.getPlayer());
                 e.getPlayer().teleport(plugin.spawnLocation);
+                e.getPlayer().getInventory().setItem(0, new teamGUI().itemMenu());
         }
     }
 }
