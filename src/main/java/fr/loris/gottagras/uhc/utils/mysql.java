@@ -2,7 +2,10 @@ package fr.loris.gottagras.uhc.utils;
 
 import fr.loris.gottagras.uhc.UHC;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class mysql {
     private final UHC plugin;
@@ -19,31 +22,28 @@ public class mysql {
         Statement statement = connection.createStatement();
         statement.execute("create table IF NOT EXISTS players(uuid varchar(20) null, name varchar(16) null, timePlayed bigint null)");
         // CHECK IF COLUMNs EXIST AND RESET TYPE
-            // UUID
-        try{
+        // UUID
+        try {
             statement.execute("alter table players add uuid varchar(20) null");
-            plugin.getLogger().info("uuid has been created in "+database+".players");
-        }
-        catch (SQLException sqlException){
-            plugin.getLogger().info("uuid exists in "+database+".players");
+            plugin.getLogger().info("uuid has been created in " + database + ".players");
+        } catch (SQLException sqlException) {
+            plugin.getLogger().info("uuid exists in " + database + ".players");
             statement.execute("alter table players modify uuid varchar(20) null ");
         }
-            // NAME
-        try{
+        // NAME
+        try {
             statement.execute("alter table players add name varchar(16) null");
-            plugin.getLogger().info("name has been created in "+database+".players");
-        }
-        catch (SQLException sqlException){
-            plugin.getLogger().info("name exists in "+database+".players");
+            plugin.getLogger().info("name has been created in " + database + ".players");
+        } catch (SQLException sqlException) {
+            plugin.getLogger().info("name exists in " + database + ".players");
             statement.execute("alter table players modify name varchar(16) null ");
         }
-            // TIME PLAYED
-        try{
+        // TIME PLAYED
+        try {
             statement.execute("alter table players add timePlayed bigint null");
-            plugin.getLogger().info("timePlayed has been created in "+database+".players");
-        }
-        catch (SQLException sqlException){
-            plugin.getLogger().info("timePlayed exists in "+database+".players");
+            plugin.getLogger().info("timePlayed has been created in " + database + ".players");
+        } catch (SQLException sqlException) {
+            plugin.getLogger().info("timePlayed exists in " + database + ".players");
             statement.execute("alter table players modify timePlayed bigint null");
         }
         // CLOSE
