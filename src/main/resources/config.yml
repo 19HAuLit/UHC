@@ -1,0 +1,6 @@
+db:
+  ip: localhost
+  port: 3306
+  database: minecraft
+  user: root
+  password: toor

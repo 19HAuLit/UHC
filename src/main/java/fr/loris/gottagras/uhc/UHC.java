@@ -2,12 +2,15 @@ package fr.loris.gottagras.uhc;
 
 import fr.loris.gottagras.uhc.infos.server;
 import fr.loris.gottagras.uhc.infos.state;
+import fr.loris.gottagras.uhc.utils.mysql;
 import fr.loris.gottagras.uhc.utils.registerEvents;
 import fr.loris.gottagras.uhc.utils.world;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.sql.SQLException;
 
 public final class UHC extends JavaPlugin {
 
@@ -23,8 +26,17 @@ public final class UHC extends JavaPlugin {
         server.MAX_PLAYERS.set(Bukkit.getMaxPlayers());
         spawnLocation = new Location(Bukkit.getWorld("world"), -13.5, 149, -104.5, 0f, 0f);
 
-        new world(this).setWorldSettings(Bukkit.getWorld("world"));
+        // CONFIG FILE
+        saveDefaultConfig();
+
+        // START RESOURCE
+        try {
+            new mysql(this).start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         new registerEvents(this).run();
+        new world(this).setWorldSettings(Bukkit.getWorld("world"));
         new world(this).autoGenerateUHC();
 
         statue = state.WAITING;
