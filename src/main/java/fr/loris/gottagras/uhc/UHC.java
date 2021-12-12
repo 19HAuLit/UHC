@@ -3,7 +3,6 @@ package fr.loris.gottagras.uhc;
 import fr.loris.gottagras.uhc.infos.server;
 import fr.loris.gottagras.uhc.infos.state;
 import fr.loris.gottagras.uhc.utils.registerEvents;
-import fr.loris.gottagras.uhc.utils.team;
 import fr.loris.gottagras.uhc.utils.world;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,7 +26,6 @@ public final class UHC extends JavaPlugin {
         new world(this).setWorldSettings(Bukkit.getWorld("world"));
         new registerEvents(this).run();
         new world(this).autoGenerateUHC();
-        new team().autoCreate();
 
         statue = state.WAITING;
     }

@@ -1,9 +1,7 @@
 package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
-import fr.loris.gottagras.uhc.gui.teamGUI;
 import fr.loris.gottagras.uhc.infos.state;
-import fr.loris.gottagras.uhc.utils.team;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -32,14 +30,6 @@ public class playerInteract implements Listener {
                     e.setCancelled(e.getAction() != Action.RIGHT_CLICK_BLOCK);
                 } else e.setCancelled(true);
             } else e.setCancelled(true);
-        }
-        // ITEM INTERACTION
-        if (e.getItem() != null){
-            if (plugin.statue == state.WAITING) {
-                if (Objects.equals(e.getItem().getItemMeta().getDisplayName(), new teamGUI().itemMenu().getItemMeta().getDisplayName())) {
-                    e.getPlayer().openInventory(new teamGUI().inventory());
-                }
-            }
         }
     }
 }
