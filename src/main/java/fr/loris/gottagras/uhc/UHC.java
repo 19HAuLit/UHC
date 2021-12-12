@@ -2,6 +2,7 @@ package fr.loris.gottagras.uhc;
 
 import fr.loris.gottagras.uhc.infos.server;
 import fr.loris.gottagras.uhc.infos.state;
+import fr.loris.gottagras.uhc.timers.timePlayedUpdater;
 import fr.loris.gottagras.uhc.utils.mysql;
 import fr.loris.gottagras.uhc.utils.registerEvents;
 import fr.loris.gottagras.uhc.utils.world;
@@ -38,6 +39,9 @@ public final class UHC extends JavaPlugin {
         new registerEvents(this).run();
         new world(this).setWorldSettings(Bukkit.getWorld("world"));
         new world(this).autoGenerateUHC();
+
+        // START TIMERS
+        Bukkit.getScheduler().runTaskTimer(this, new timePlayedUpdater(this),0,20);
 
         statue = state.WAITING;
     }
