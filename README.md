@@ -1,12 +1,12 @@
 # **Déroulement d'une partie**
 `LOADING:` 
- - Les joueurs ne peuvent pas rejoindre le serveur lors de cette étape. \
- - Génération des maps, Initialisation des events, ...\
+ - Les joueurs ne peuvent pas rejoindre le serveur lors de cette étape. 
+ - Génération des maps, Initialisation des events, ...
 
 \
 `WAITING:` 
- - Les joueurs peuvent rejoindre l'uhc\
- - Les joueurs peuvent rejoindre une team\
+ - Les joueurs peuvent rejoindre l'uhc
+ - Les joueurs peuvent rejoindre une team
  - L'host peut régler les paramètres du serveur (scénarios, border, timer, inventaire de départ, stuff de mort, ...)
 
 \
