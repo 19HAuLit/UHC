@@ -1,6 +1,7 @@
 package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
+import fr.loris.gottagras.uhc.gui.teamGUI;
 import fr.loris.gottagras.uhc.utils.mysql;
 import fr.loris.gottagras.uhc.utils.resetPlayer;
 import org.bukkit.ChatColor;
@@ -31,6 +32,7 @@ public class playerJoin implements Listener {
                 e.getPlayer().kickPlayer(ChatColor.RED + "Server is loading");
             case WAITING:
                 new resetPlayer().resetAll(e.getPlayer());
+                e.getPlayer().getInventory().setItem(0, new teamGUI(plugin).item());
                 e.getPlayer().teleport(plugin.spawnLocation);
         }
     }

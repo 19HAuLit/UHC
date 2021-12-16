@@ -14,3 +14,6 @@ commands:
       - alert
       - info
     permission: broadcast.use
+  test:
+    description: Commande de test
+    permission: test.use

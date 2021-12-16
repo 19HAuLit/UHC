@@ -1,7 +1,9 @@
 package fr.loris.gottagras.uhc.infos;
 
 public enum server {
-    MAX_PLAYERS(20);
+    MAX_PLAYERS(20),
+    NUMBER_OF_TEAM(20),
+    PLAYER_PER_TEAM(1);
 
     private int value;
 
