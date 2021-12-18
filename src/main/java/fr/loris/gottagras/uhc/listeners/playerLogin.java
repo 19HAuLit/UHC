@@ -2,7 +2,6 @@ package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
 import fr.loris.gottagras.uhc.infos.state;
-import fr.loris.gottagras.uhc.utils.mysql;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

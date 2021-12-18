@@ -45,7 +45,7 @@ public final class UHC extends JavaPlugin {
         new teams(this).autoCreate();
 
         // START TIMERS
-        Bukkit.getScheduler().runTaskTimer(this, new timePlayedUpdater(this),0,20);
+        Bukkit.getScheduler().runTaskTimer(this, new timePlayedUpdater(this), 0, 20);
 
         statue = state.WAITING;
     }

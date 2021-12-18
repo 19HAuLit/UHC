@@ -14,6 +14,7 @@ public class registerEvents {
         plugin.getServer().getPluginManager().registerEvents(new serverListPing(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerLogin(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerJoin(plugin), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new playerQuit(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerMove(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerInteract(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new blockBreak(plugin), plugin);

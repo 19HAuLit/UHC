@@ -10,13 +10,14 @@ import java.sql.SQLException;
 
 public class timePlayedUpdater extends BukkitRunnable implements Runnable {
     private UHC plugin;
+
     public timePlayedUpdater(UHC plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public void run() {
-        for (Player player: Bukkit.getOnlinePlayers()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             try {
                 new mysql(plugin).updateTimePlayed(player);
             } catch (SQLException e) {

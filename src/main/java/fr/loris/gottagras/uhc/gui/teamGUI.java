@@ -5,12 +5,16 @@ import fr.loris.gottagras.uhc.infos.server;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+
 public class teamGUI {
     private final UHC plugin;
+
     public teamGUI(UHC plugin) {
         this.plugin = plugin;
     }
@@ -18,7 +22,7 @@ public class teamGUI {
     public ItemStack item() {
         ItemStack itemStack = new ItemStack(Material.NAME_TAG);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.GOLD+"Teams");
+        itemMeta.setDisplayName(ChatColor.GOLD + "Teams");
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
@@ -27,15 +31,15 @@ public class teamGUI {
         // INVENTORY CREATOR
         int inventorySize = 0;
         int nbTeams = server.NUMBER_OF_TEAM.get();
-        while (nbTeams > 0){
+        while (nbTeams > 0) {
             inventorySize += 9;
             nbTeams -= 9;
         }
         Inventory inventory = Bukkit.createInventory(null, inventorySize, item().getItemMeta().getDisplayName());
         // TEAM ITEM
-        for (int i = 1; i <= server.NUMBER_OF_TEAM.get(); i++){
+        for (int i = 1; i <= server.NUMBER_OF_TEAM.get(); i++) {
             ItemStack itemStack = new ItemStack(Material.WOOL);
-            switch (i%16){
+            switch (i % 16) {
                 case 0:
                     itemStack = new ItemStack(Material.WOOL, 1, (short) 15);
                     break;
@@ -82,7 +86,12 @@ public class teamGUI {
                     break;
             }
             ItemMeta itemMeta = itemStack.getItemMeta();
-            itemMeta.setDisplayName(plugin.scoreboard.getTeam("uhc_team_"+i).getDisplayName());
+            itemMeta.setDisplayName(plugin.scoreboard.getTeam("uhc_team_" + i).getDisplayName());
+            ArrayList<String> lore = new ArrayList<String>();
+            for (OfflinePlayer player : plugin.scoreboard.getTeam("uhc_team_" + i).getPlayers()) {
+                lore.add(" - " + player.getName());
+            }
+            itemMeta.setLore(lore);
             itemStack.setItemMeta(itemMeta);
             inventory.addItem(itemStack);
         }

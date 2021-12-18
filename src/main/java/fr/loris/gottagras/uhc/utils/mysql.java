@@ -61,9 +61,11 @@ public class mysql {
     public void registerPlayer(Player player) throws SQLException {
         Connection connection = createConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from players where uuid='"+player.getUniqueId()+"'");
-        if (!resultSet.next()) statement.executeUpdate("insert into players (uuid, name, timePlayed) VALUES ('"+player.getUniqueId()+"', '"+player.getName()+"', 0)");
-        else statement.executeUpdate("update players SET name='"+player.getName()+"' where uuid='"+player.getUniqueId()+"'");
+        ResultSet resultSet = statement.executeQuery("select * from players where uuid='" + player.getUniqueId() + "'");
+        if (!resultSet.next())
+            statement.executeUpdate("insert into players (uuid, name, timePlayed) VALUES ('" + player.getUniqueId() + "', '" + player.getName() + "', 0)");
+        else
+            statement.executeUpdate("update players SET name='" + player.getName() + "' where uuid='" + player.getUniqueId() + "'");
         resultSet.close();
         statement.close();
         connection.close();
@@ -72,10 +74,10 @@ public class mysql {
     public void updateTimePlayed(Player player) throws SQLException {
         Connection connection = createConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from players where uuid='"+player.getUniqueId()+"'");
+        ResultSet resultSet = statement.executeQuery("select * from players where uuid='" + player.getUniqueId() + "'");
         resultSet.next();
         int timePlayed = resultSet.getInt("timePlayed") + 1;
-        statement.executeUpdate("update players SET timePlayed="+timePlayed+" where uuid='"+player.getUniqueId()+"'");
+        statement.executeUpdate("update players SET timePlayed=" + timePlayed + " where uuid='" + player.getUniqueId() + "'");
         resultSet.close();
         statement.close();
         connection.close();

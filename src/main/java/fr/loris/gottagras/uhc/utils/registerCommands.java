@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 
 public class registerCommands {
     private final UHC plugin;
+
     public registerCommands(UHC plugin) {
         this.plugin = plugin;
     }
