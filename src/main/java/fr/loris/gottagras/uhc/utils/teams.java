@@ -8,8 +8,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
 
-import java.util.Objects;
-
 public class teams {
     private final UHC plugin;
 
@@ -18,13 +16,19 @@ public class teams {
     }
 
     public void autoCreate() {
-        plugin.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        plugin.scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
         if ((server.MAX_PLAYERS.get() % server.PLAYER_PER_TEAM.get()) == 0) {
             server.NUMBER_OF_TEAM.set(server.MAX_PLAYERS.get() / server.PLAYER_PER_TEAM.get());
         } else server.NUMBER_OF_TEAM.set(server.MAX_PLAYERS.get() / server.PLAYER_PER_TEAM.get() + 1);
 
         for (int i = 1; i <= server.NUMBER_OF_TEAM.get(); i++) {
+            try {
+                plugin.scoreboard.getTeam("uhc_team_" + i).unregister();
+                plugin.getLogger().info("Reset team uhc_team_" + i);
+            } catch (NullPointerException e) {
+                plugin.getLogger().info("Create team uhc_team_" + i);
+            }
             Team team = plugin.scoreboard.registerNewTeam("uhc_team_" + i);
             switch (i % 16) {
                 case 0:
@@ -96,13 +100,10 @@ public class teams {
     }
 
     public void joinTeamById(Player player, int teamId) {
-        for (Team team : plugin.scoreboard.getTeams()) {
-            if (Objects.equals(team.getName(), "uhc_team_" + teamId)) {
-                team.addPlayer(player);
-                player.setDisplayName(team.getPrefix() + player.getName());
-                player.setPlayerListName(team.getPrefix() + player.getName());
-            }
-        }
+        Team team = plugin.scoreboard.getTeam("uhc_team_" + teamId);
+        team.addPlayer(player);
+        player.setPlayerListName(team.getPrefix() + player.getName());
+        player.setCustomNameVisible(true);
     }
 
     public void quitAllTeams(Player player) {
@@ -115,14 +116,12 @@ public class teams {
         }
         player.setDisplayName(player.getName());
         player.setPlayerListName(player.getName());
+        player.setCustomName(player.getName());
+        player.setCustomNameVisible(false);
     }
 
     public boolean canJoinTeamBySize(int teamId) {
-        for (Team team : plugin.scoreboard.getTeams()) {
-            if (team.getName().equals("uhc_team_" + teamId)) {
-                if (team.getSize() < server.PLAYER_PER_TEAM.get()) return true;
-            }
-        }
-        return false;
+        Team team = plugin.scoreboard.getTeam("uhc_team_" + teamId);
+        return team.getSize() < server.PLAYER_PER_TEAM.get();
     }
 }
