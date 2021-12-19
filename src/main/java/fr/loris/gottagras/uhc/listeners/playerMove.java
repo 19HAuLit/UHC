@@ -3,6 +3,7 @@ package fr.loris.gottagras.uhc.listeners;
 import fr.loris.gottagras.uhc.UHC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,6 +32,6 @@ public class playerMove implements Listener {
             }
         }
         // ALLOW FLIGHT
-        e.getPlayer().setAllowFlight(e.getPlayer().getWorld() == plugin.spawnLocation.getWorld());
+        e.getPlayer().setAllowFlight(e.getPlayer().getGameMode() == GameMode.CREATIVE || e.getPlayer().getGameMode() == GameMode.SPECTATOR || e.getPlayer().getWorld() == plugin.spawnLocation.getWorld());
     }
 }

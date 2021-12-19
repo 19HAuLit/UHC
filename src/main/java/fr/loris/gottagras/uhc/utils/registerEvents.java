@@ -22,5 +22,6 @@ public class registerEvents {
         plugin.getServer().getPluginManager().registerEvents(new playerDropItem(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new playerPickupItem(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(new inventoryClick(plugin), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new asyncPlayerChat(plugin), plugin);
     }
 }

@@ -18,7 +18,7 @@ public class mysql {
         Connection connection = createConnection();
         // CREATE TABLES
         Statement statement = connection.createStatement();
-        statement.execute("create table IF NOT EXISTS players(uuid text null, name text null, timePlayed bigint null)");
+        statement.execute("create table IF NOT EXISTS players(uuid text null, name text null, timePlayed bigint null, playerRank text null)");
         // CHECK IF COLUMNs EXIST AND RESET TYPE
         // UUID
         try {
@@ -44,6 +44,14 @@ public class mysql {
             plugin.getLogger().info("timePlayed exists in " + database + ".players");
             statement.execute("alter table players modify timePlayed bigint null");
         }
+        // RANK
+        try {
+            statement.execute("alter table players add playerRank text null");
+            plugin.getLogger().info("playerRank has been created in " + database + ".players");
+        } catch (SQLException sqlException) {
+            plugin.getLogger().info("playerRank exists in " + database + ".players");
+            statement.execute("alter table players modify playerRank text null");
+        }
         // CLOSE
         statement.close();
         connection.close();
@@ -63,7 +71,7 @@ public class mysql {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select * from players where uuid='" + player.getUniqueId() + "'");
         if (!resultSet.next())
-            statement.executeUpdate("insert into players (uuid, name, timePlayed) VALUES ('" + player.getUniqueId() + "', '" + player.getName() + "', 0)");
+            statement.executeUpdate("insert into players (uuid, name, timePlayed) VALUES ('" + player.getUniqueId() + "', '" + player.getName() + "', 0, \"Player\")");
         else
             statement.executeUpdate("update players SET name='" + player.getName() + "' where uuid='" + player.getUniqueId() + "'");
         resultSet.close();
