@@ -1,7 +1,8 @@
 package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
-import fr.loris.gottagras.uhc.gui.teamGUI;
+import fr.loris.gottagras.uhc.gui.settingsGUI;
+import fr.loris.gottagras.uhc.gui.teamsGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -22,8 +23,11 @@ public class playerInteract implements Listener {
         // ITEM INTERACT
         if (e.getItem() != null) {
             String itemName = e.getItem().getItemMeta().getDisplayName();
-            if (itemName.equals(new teamGUI(plugin).item().getItemMeta().getDisplayName())) {
-                e.getPlayer().openInventory(new teamGUI(plugin).inventory());
+            if (itemName.equals(new teamsGUI(plugin).item().getItemMeta().getDisplayName())) {
+                e.getPlayer().openInventory(new teamsGUI(plugin).inventory());
+            }
+            else if (itemName.equals(new settingsGUI(plugin).item().getItemMeta().getDisplayName())){
+                e.getPlayer().openInventory(new settingsGUI(plugin).inventory());
             }
         }
         // SPAWN PROTECTION

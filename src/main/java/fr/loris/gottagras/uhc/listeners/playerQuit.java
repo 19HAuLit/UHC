@@ -1,7 +1,7 @@
 package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
-import fr.loris.gottagras.uhc.gui.teamGUI;
+import fr.loris.gottagras.uhc.gui.teamsGUI;
 import fr.loris.gottagras.uhc.utils.teams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,8 +26,8 @@ public class playerQuit implements Listener {
             case WAITING:
                 new teams(plugin).quitAllTeams(e.getPlayer());
                 for (Player players : Bukkit.getOnlinePlayers()) {
-                    if (Objects.equals(players.getOpenInventory().getTopInventory().getName(), new teamGUI(plugin).inventory().getName())) {
-                        players.openInventory(new teamGUI(plugin).inventory());
+                    if (Objects.equals(players.getOpenInventory().getTopInventory().getName(), new teamsGUI(plugin).inventory().getName())) {
+                        players.openInventory(new teamsGUI(plugin).inventory());
                     }
                 }
                 break;

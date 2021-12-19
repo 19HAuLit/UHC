@@ -12,10 +12,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-public class teamGUI {
+public class teamsGUI {
     private final UHC plugin;
 
-    public teamGUI(UHC plugin) {
+    public teamsGUI(UHC plugin) {
         this.plugin = plugin;
     }
 

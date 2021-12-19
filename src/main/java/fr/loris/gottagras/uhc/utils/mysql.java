@@ -71,7 +71,7 @@ public class mysql {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select * from players where uuid='" + player.getUniqueId() + "'");
         if (!resultSet.next())
-            statement.executeUpdate("insert into players (uuid, name, timePlayed) VALUES ('" + player.getUniqueId() + "', '" + player.getName() + "', 0, \"Player\")");
+            statement.executeUpdate("insert into players (uuid, name, timePlayed, playerRank) VALUES ('" + player.getUniqueId() + "', '" + player.getName() + "', 0, 'Player')");
         else
             statement.executeUpdate("update players SET name='" + player.getName() + "' where uuid='" + player.getUniqueId() + "'");
         resultSet.close();
@@ -89,5 +89,17 @@ public class mysql {
         resultSet.close();
         statement.close();
         connection.close();
+    }
+
+    public String getRank(Player player) throws SQLException {
+        Connection connection = createConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select playerRank from players where uuid='"+player.getUniqueId()+"'");
+        resultSet.next();
+        String rank = resultSet.getString("playerRank");
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return rank;
     }
 }
