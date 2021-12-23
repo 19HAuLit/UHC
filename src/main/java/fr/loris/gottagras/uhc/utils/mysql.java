@@ -94,7 +94,7 @@ public class mysql {
     public String getRank(Player player) throws SQLException {
         Connection connection = createConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select playerRank from players where uuid='"+player.getUniqueId()+"'");
+        ResultSet resultSet = statement.executeQuery("select playerRank from players where uuid='" + player.getUniqueId() + "'");
         resultSet.next();
         String rank = resultSet.getString("playerRank");
         resultSet.close();

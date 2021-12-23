@@ -18,7 +18,7 @@ public enum border {
         return border;
     }
 
-    public void set(double time) {
-        this.border = time;
+    public void set(double size) {
+        this.border = size;
     }
 }

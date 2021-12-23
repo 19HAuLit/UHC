@@ -25,8 +25,7 @@ public class playerInteract implements Listener {
             String itemName = e.getItem().getItemMeta().getDisplayName();
             if (itemName.equals(new teamsGUI(plugin).item().getItemMeta().getDisplayName())) {
                 e.getPlayer().openInventory(new teamsGUI(plugin).inventory());
-            }
-            else if (itemName.equals(new settingsGUI(plugin).item().getItemMeta().getDisplayName())){
+            } else if (itemName.equals(new settingsGUI(plugin).item().getItemMeta().getDisplayName())) {
                 e.getPlayer().openInventory(new settingsGUI(plugin).inventory());
             }
         }
