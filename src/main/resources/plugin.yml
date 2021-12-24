@@ -13,10 +13,7 @@ commands:
       - bc
       - alert
       - info
-    permission: broadcast.use
   test:
     description: Commande de test
-    permission: test.use
   stuff:
     description: Commande permetant de pouvoir interagir avec le stuff de depart
-    permission: stuff.use

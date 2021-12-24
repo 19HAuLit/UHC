@@ -7,6 +7,7 @@ import fr.loris.gottagras.uhc.gui.stuffGUI;
 import fr.loris.gottagras.uhc.gui.teamsGUI;
 import fr.loris.gottagras.uhc.infos.border;
 import fr.loris.gottagras.uhc.infos.server;
+import fr.loris.gottagras.uhc.utils.mysql;
 import fr.loris.gottagras.uhc.utils.teams;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class inventoryClick implements Listener {
@@ -38,10 +40,7 @@ public class inventoryClick implements Listener {
                 }
                 // SETTINGS
                 else if (Objects.equals(e.getClickedInventory().getName(), new settingsGUI(plugin).inventory().getName())) {
-                    if (e.getClick().isRightClick()) {
-                        ((Player) e.getWhoClicked()).chat("/stuff modify");
-                        e.getWhoClicked().closeInventory();
-                    } else settingsGUI(e);
+                    settingsGUI(e);
                 }
                 // BORDER
                 else if (Objects.equals(e.getClickedInventory().getName(), new borderGUI(plugin).inventory().getName())) {
@@ -73,10 +72,24 @@ public class inventoryClick implements Listener {
     }
 
     public void settingsGUI(InventoryClickEvent e) {
+        // BORDER
         if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new borderGUI(plugin).item().getItemMeta().getDisplayName())) {
-            e.getWhoClicked().openInventory(new borderGUI(plugin).inventory());
-        } else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new stuffGUI(plugin).item().getItemMeta().getDisplayName())) {
-            e.getWhoClicked().openInventory(new stuffGUI(plugin).inventory());
+            String playerRank = null;
+            try {
+                playerRank = new mysql(plugin).getRank(((Player) e.getWhoClicked()));
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            if (Objects.equals(playerRank, "Admin") || Objects.equals(playerRank, "Host")) {
+                e.getWhoClicked().openInventory(new borderGUI(plugin).inventory());
+            }
+        }
+        // STUFF
+        else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new stuffGUI(plugin).item().getItemMeta().getDisplayName())) {
+            if (e.getClick().isRightClick()) {
+                ((Player) e.getWhoClicked()).chat("/stuff modify");
+                e.getWhoClicked().closeInventory();
+            } else e.getWhoClicked().openInventory(new stuffGUI(plugin).inventory());
         }
     }
 

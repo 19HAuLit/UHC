@@ -27,7 +27,7 @@ public class playerJoin implements Listener {
         try {
             new mysql(plugin).registerPlayer(e.getPlayer());
             String rank = new mysql(plugin).getRank(e.getPlayer());
-            e.getPlayer().setOp(Objects.equals(rank, "Admin") || Objects.equals(rank, "Host"));
+            e.getPlayer().setOp(Objects.equals(rank, "Admin"));
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
