@@ -26,7 +26,7 @@ public class settingsGUI {
     public Inventory inventory() {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.RED + "Settings");
         inventory.setItem(10, new borderGUI(plugin).item());
-        inventory.setItem(11, new inventoryGUI(plugin).item());
+        inventory.setItem(11, new stuffGUI(plugin).item());
         return inventory;
     }
 }

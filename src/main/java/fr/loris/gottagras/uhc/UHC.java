@@ -19,6 +19,7 @@ public final class UHC extends JavaPlugin {
     public String prefixMsg = ChatColor.DARK_RED + "[" + ChatColor.BLUE + "GottaGras" + ChatColor.DARK_GRAY + "-" + ChatColor.GOLD + "UHC" + ChatColor.DARK_RED + "]" + ChatColor.DARK_GRAY + " - ";
     public Location spawnLocation;
     public ItemStack[] starterInventory;
+    public ItemStack[] starterArmor;
     public Scoreboard scoreboard;
 
     @Override

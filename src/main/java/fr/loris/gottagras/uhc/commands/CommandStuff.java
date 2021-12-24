@@ -1,8 +1,10 @@
 package fr.loris.gottagras.uhc.commands;
 
 import fr.loris.gottagras.uhc.UHC;
+import fr.loris.gottagras.uhc.gui.stuffGUI;
 import fr.loris.gottagras.uhc.listeners.playerJoin;
 import fr.loris.gottagras.uhc.utils.resetPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -11,6 +13,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Objects;
 
 public class CommandStuff implements CommandExecutor {
     private UHC plugin;
@@ -34,12 +38,38 @@ public class CommandStuff implements CommandExecutor {
                                     else player.getInventory().addItem(itemStack);
                                 }
                             }
+                            if (plugin.starterArmor != null) {
+                                int armorSlot = 0;
+                                for (ItemStack itemStack : plugin.starterArmor) {
+                                    switch (armorSlot) {
+                                        case 0:
+                                            player.getInventory().setBoots(itemStack);
+                                            break;
+                                        case 1:
+                                            player.getInventory().setLeggings(itemStack);
+                                            break;
+                                        case 2:
+                                            player.getInventory().setChestplate(itemStack);
+                                            break;
+                                        case 3:
+                                            player.getInventory().setHelmet(itemStack);
+                                            break;
+                                    }
+                                    armorSlot++;
+                                }
+                            }
                             player.setGameMode(GameMode.CREATIVE);
                             player.sendMessage(plugin.prefixMsg + "N'oubliez pas de " + ChatColor.GOLD + "/stuff save" + ChatColor.DARK_GRAY + " et de " + ChatColor.GOLD + "/stuff finish" + ChatColor.DARK_GRAY + " a la fin de la modification du stuff de depart");
                             break;
                         case "save":
                             plugin.starterInventory = player.getInventory().getContents();
+                            plugin.starterArmor = player.getInventory().getArmorContents();
                             player.sendMessage(plugin.prefixMsg + "Stuff de  depart enregistre");
+                            for (Player onlinePlayer: Bukkit.getOnlinePlayers()){
+                                if (Objects.equals(onlinePlayer.getOpenInventory().getTopInventory().getName(), new stuffGUI(plugin).inventory().getName())){
+                                    onlinePlayer.openInventory(new stuffGUI(plugin).inventory());
+                                }
+                            }
                             break;
                         case "finish":
                             new playerJoin(plugin).waitingStuff(player);

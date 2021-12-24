@@ -2,8 +2,8 @@ package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
 import fr.loris.gottagras.uhc.gui.borderGUI;
-import fr.loris.gottagras.uhc.gui.inventoryGUI;
 import fr.loris.gottagras.uhc.gui.settingsGUI;
+import fr.loris.gottagras.uhc.gui.stuffGUI;
 import fr.loris.gottagras.uhc.gui.teamsGUI;
 import fr.loris.gottagras.uhc.infos.border;
 import fr.loris.gottagras.uhc.infos.server;
@@ -47,9 +47,9 @@ public class inventoryClick implements Listener {
                 else if (Objects.equals(e.getClickedInventory().getName(), new borderGUI(plugin).inventory().getName())) {
                     borderGUI(e);
                 }
-                // INVENTORY
-                else if (Objects.equals(e.getClickedInventory().getName(), new inventoryGUI(plugin).inventory().getName())) {
-                    inventoryGUI(e);
+                // STUFF
+                else if (Objects.equals(e.getClickedInventory().getName(), new stuffGUI(plugin).inventory().getName())) {
+                    stuffGUI(e);
                 }
             }
         }
@@ -75,8 +75,8 @@ public class inventoryClick implements Listener {
     public void settingsGUI(InventoryClickEvent e) {
         if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new borderGUI(plugin).item().getItemMeta().getDisplayName())) {
             e.getWhoClicked().openInventory(new borderGUI(plugin).inventory());
-        } else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new inventoryGUI(plugin).item().getItemMeta().getDisplayName())) {
-            e.getWhoClicked().openInventory(new inventoryGUI(plugin).inventory());
+        } else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new stuffGUI(plugin).item().getItemMeta().getDisplayName())) {
+            e.getWhoClicked().openInventory(new stuffGUI(plugin).inventory());
         }
     }
 
@@ -143,7 +143,7 @@ public class inventoryClick implements Listener {
         }
     }
 
-    public void inventoryGUI(InventoryClickEvent e) {
-        e.getWhoClicked().openInventory(new inventoryGUI(plugin).inventory());
+    public void stuffGUI(InventoryClickEvent e) {
+        e.getWhoClicked().openInventory(new stuffGUI(plugin).inventory());
     }
 }
