@@ -2,6 +2,7 @@ package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
 import fr.loris.gottagras.uhc.gui.borderGUI;
+import fr.loris.gottagras.uhc.gui.inventoryGUI;
 import fr.loris.gottagras.uhc.gui.settingsGUI;
 import fr.loris.gottagras.uhc.gui.teamsGUI;
 import fr.loris.gottagras.uhc.infos.border;
@@ -31,12 +32,24 @@ public class inventoryClick implements Listener {
         // GUIs
         if (e.getCurrentItem() != null) {
             if (e.getCurrentItem().getType() != Material.AIR) {
+                // TEAM
                 if (Objects.equals(e.getClickedInventory().getName(), new teamsGUI(plugin).inventory().getName())) {
                     teamsGUI(e);
-                } else if (Objects.equals(e.getClickedInventory().getName(), new settingsGUI(plugin).inventory().getName())) {
-                    settingsGUI(e);
-                } else if (Objects.equals(e.getClickedInventory().getName(), new borderGUI(plugin).inventory().getName())) {
+                }
+                // SETTINGS
+                else if (Objects.equals(e.getClickedInventory().getName(), new settingsGUI(plugin).inventory().getName())) {
+                    if (e.getClick().isRightClick()) {
+                        ((Player) e.getWhoClicked()).chat("/stuff modify");
+                        e.getWhoClicked().closeInventory();
+                    } else settingsGUI(e);
+                }
+                // BORDER
+                else if (Objects.equals(e.getClickedInventory().getName(), new borderGUI(plugin).inventory().getName())) {
                     borderGUI(e);
+                }
+                // INVENTORY
+                else if (Objects.equals(e.getClickedInventory().getName(), new inventoryGUI(plugin).inventory().getName())) {
+                    inventoryGUI(e);
                 }
             }
         }
@@ -62,6 +75,8 @@ public class inventoryClick implements Listener {
     public void settingsGUI(InventoryClickEvent e) {
         if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new borderGUI(plugin).item().getItemMeta().getDisplayName())) {
             e.getWhoClicked().openInventory(new borderGUI(plugin).inventory());
+        } else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new inventoryGUI(plugin).item().getItemMeta().getDisplayName())) {
+            e.getWhoClicked().openInventory(new inventoryGUI(plugin).inventory());
         }
     }
 
@@ -119,17 +134,16 @@ public class inventoryClick implements Listener {
                 border.FINAL_SIZE.set(border.FINAL_SIZE.get() + 100);
                 break;
         }
-
         for (Player players : Bukkit.getOnlinePlayers()) {
             if (Objects.equals(players.getOpenInventory().getTopInventory().getName(), new settingsGUI(plugin).inventory().getName())) {
                 players.openInventory(new settingsGUI(plugin).inventory());
-            }
-        }
-
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            if (Objects.equals(players.getOpenInventory().getTopInventory().getName(), new borderGUI(plugin).inventory().getName())) {
+            } else if (Objects.equals(players.getOpenInventory().getTopInventory().getName(), new borderGUI(plugin).inventory().getName())) {
                 players.openInventory(new borderGUI(plugin).inventory());
             }
         }
+    }
+
+    public void inventoryGUI(InventoryClickEvent e) {
+        e.getWhoClicked().openInventory(new inventoryGUI(plugin).inventory());
     }
 }

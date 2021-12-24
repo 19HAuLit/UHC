@@ -21,17 +21,17 @@ public class borderGUI {
     public ItemStack item() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.AQUA + "BORDER");
+        itemMeta.setDisplayName(ChatColor.DARK_GRAY + "BORDER");
         ArrayList<String> lore = new ArrayList<String>();
-        lore.add("Initial Size: " + ((int) border.INITIAL_SIZE.get()));
-        lore.add("Final Size: " + ((int) border.FINAL_SIZE.get()));
+        lore.add(ChatColor.GOLD + "Initial Size: " + ChatColor.GRAY + ((int) border.INITIAL_SIZE.get()));
+        lore.add(ChatColor.GOLD + "Final Size: " + ChatColor.GRAY + ((int) border.FINAL_SIZE.get()));
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
 
     public Inventory inventory() {
-        Inventory inventory = Bukkit.createInventory(null, 36, ChatColor.AQUA + "BORDER");
+        Inventory inventory = Bukkit.createInventory(null, 36, ChatColor.DARK_GRAY + "BORDER");
         // INITIAL SIZE
         ItemStack initialSizeMinus100 = new ItemStack(Material.STAINED_CLAY, 1, (short) 14);
         ItemMeta initialSizeMinus100ItemMeta = initialSizeMinus100.getItemMeta();

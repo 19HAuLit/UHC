@@ -17,3 +17,6 @@ commands:
   test:
     description: Commande de test
     permission: test.use
+  stuff:
+    description: Commande permetant de pouvoir interagir avec le stuff de depart
+    permission: stuff.use
