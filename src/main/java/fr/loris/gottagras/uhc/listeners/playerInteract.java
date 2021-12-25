@@ -12,7 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class playerInteract implements Listener {
-    private UHC plugin;
+    private final UHC plugin;
 
     public playerInteract(UHC plugin) {
         this.plugin = plugin;
@@ -22,11 +22,16 @@ public class playerInteract implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e) {
         // ITEM INTERACT
         if (e.getItem() != null) {
-            String itemName = e.getItem().getItemMeta().getDisplayName();
-            if (itemName.equals(new teamsGUI(plugin).item().getItemMeta().getDisplayName())) {
-                e.getPlayer().openInventory(new teamsGUI(plugin).inventory());
-            } else if (itemName.equals(new settingsGUI(plugin).item().getItemMeta().getDisplayName())) {
-                e.getPlayer().openInventory(new settingsGUI(plugin).inventory());
+            if (e.getItem().hasItemMeta()) {
+                String itemName = e.getItem().getItemMeta().getDisplayName();
+                // OPEN TEAM GUI
+                if (itemName.equals(new teamsGUI(plugin).item().getItemMeta().getDisplayName())) {
+                    e.getPlayer().openInventory(new teamsGUI(plugin).inventory());
+                }
+                // OPEN SETTINGS GUI
+                else if (itemName.equals(new settingsGUI(plugin).item().getItemMeta().getDisplayName())) {
+                    e.getPlayer().openInventory(new settingsGUI(plugin).inventory());
+                }
             }
         }
         // SPAWN PROTECTION

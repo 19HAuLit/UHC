@@ -12,6 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.TreeMap;
 
 public final class UHC extends JavaPlugin {
 
@@ -21,6 +23,9 @@ public final class UHC extends JavaPlugin {
     public ItemStack[] starterInventory;
     public ItemStack[] starterArmor;
     public Scoreboard scoreboard;
+    public Map<String, String> playerLastDamager = new TreeMap<>();
+    public Map<String, Long> playerLastDamagerTime = new TreeMap<>();
+    public Map<String, Integer> playerKillCounter = new TreeMap<>();
 
     @Override
     public void onEnable() {

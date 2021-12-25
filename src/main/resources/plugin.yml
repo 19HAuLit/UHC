@@ -17,3 +17,5 @@ commands:
     description: Commande de test
   stuff:
     description: Commande permetant de pouvoir interagir avec le stuff de depart
+  start:
+    description: Commande permetant de lancer l'UHC

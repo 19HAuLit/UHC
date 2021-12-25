@@ -1,6 +1,7 @@
 package fr.loris.gottagras.uhc.infos;
 
 public enum timers {
+    CURRENT(0),
     PVE(30),
     PVP(20 * 60),
     BORDER(60 * 60),

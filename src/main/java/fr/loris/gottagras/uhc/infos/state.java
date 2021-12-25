@@ -3,8 +3,9 @@ package fr.loris.gottagras.uhc.infos;
 public enum state {
     LOADING,
     WAITING,
-    TELEPORTING,
     STARTING,
+    TELEPORTING,
+    BEGINNING,
     PVE,
     PVP,
     BORDER,

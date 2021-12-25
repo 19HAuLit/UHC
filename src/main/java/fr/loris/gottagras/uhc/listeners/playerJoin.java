@@ -5,7 +5,11 @@ import fr.loris.gottagras.uhc.gui.settingsGUI;
 import fr.loris.gottagras.uhc.gui.teamsGUI;
 import fr.loris.gottagras.uhc.utils.mysql;
 import fr.loris.gottagras.uhc.utils.resetPlayer;
+import fr.loris.gottagras.uhc.utils.teams;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,8 +39,19 @@ public class playerJoin implements Listener {
         switch (plugin.statue) {
             case LOADING:
                 e.getPlayer().kickPlayer(ChatColor.RED + "Server is loading");
+                break;
             case WAITING:
                 waitingStuff(e.getPlayer());
+                break;
+            default:
+                if (new teams(plugin).hasTeam(e.getPlayer())) {
+
+                } else {
+                    new resetPlayer().resetAll(e.getPlayer());
+                    e.getPlayer().setGameMode(GameMode.SPECTATOR);
+                    e.getPlayer().teleport(new Location(Bukkit.getWorld("uhc-world"), 0, 100, 0));
+                }
+                break;
         }
     }
 

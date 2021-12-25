@@ -8,6 +8,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
 
+import java.util.Objects;
+
 public class teams {
     private final UHC plugin;
 
@@ -123,5 +125,16 @@ public class teams {
     public boolean canJoinTeamBySize(int teamId) {
         Team team = plugin.scoreboard.getTeam("uhc_team_" + teamId);
         return team.getSize() < server.PLAYER_PER_TEAM.get();
+    }
+
+    public boolean hasTeam(Player player) {
+        for (Team team : plugin.scoreboard.getTeams()) {
+            if (team.getName().startsWith("uhc_team_")) {
+                for (OfflinePlayer offlinePlayer : team.getPlayers()) {
+                    if (Objects.equals(player.getName(), offlinePlayer.getName())) return true;
+                }
+            }
+        }
+        return false;
     }
 }

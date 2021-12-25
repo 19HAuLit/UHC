@@ -108,6 +108,10 @@ public class inventoryClick implements Listener {
         else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new timersGUI(plugin).item().getItemMeta().getDisplayName()) && permAdminOrHost) {
             e.getWhoClicked().openInventory(new timersGUI(plugin).inventory());
         }
+        // START UHC
+        else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new settingsGUI(plugin).startUHC().getItemMeta().getDisplayName())) {
+            ((Player) e.getWhoClicked()).chat("/start");
+        }
     }
 
     public void borderGUI(InventoryClickEvent e) {
@@ -178,25 +182,52 @@ public class inventoryClick implements Listener {
     }
 
     public void configGUI(InventoryClickEvent e) {
+        // CLASSICO
         if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new configGUI(plugin).uhc_classico().getItemMeta().getDisplayName())) {
             e.getWhoClicked().sendMessage(plugin.prefixMsg + "La configuration " + ChatColor.GOLD + "UHC Classico " + ChatColor.DARK_GRAY + "viens d'etre selectionee");
             // BORDER
             border.INITIAL_SIZE.set(Math.pow(server.MAX_PLAYERS.get(), 0.5) * 600);
             border.FINAL_SIZE.set(100);
             // STUFF
-            Inventory classicoInventory = Bukkit.createInventory(null, 36, "classico");
-            classicoInventory.addItem(new ItemStack(Material.STONE_AXE));
-            classicoInventory.addItem(new ItemStack(Material.STONE_PICKAXE));
-            classicoInventory.addItem(new ItemStack(Material.WATER_BUCKET));
-            classicoInventory.addItem(new ItemStack(Material.WATER_BUCKET));
-            classicoInventory.addItem(new ItemStack(Material.BOOK, 6));
-            plugin.starterInventory = classicoInventory.getContents();
+            Inventory inventory = Bukkit.createInventory(null, 36, "classico");
+            inventory.addItem(new ItemStack(Material.STONE_AXE));
+            inventory.addItem(new ItemStack(Material.STONE_PICKAXE));
+            inventory.addItem(new ItemStack(Material.WATER_BUCKET));
+            inventory.addItem(new ItemStack(Material.WATER_BUCKET));
+            inventory.addItem(new ItemStack(Material.BOOK, 6));
+            plugin.starterInventory = inventory.getContents();
             plugin.starterArmor = null;
             // TIMERS
             timers.PVE.setTime(30);
             timers.PVP.setTime(20 * 60);
             timers.BORDER.setTime(60 * 60);
             timers.MEETUP.setTime(80 * 60);
+        }
+        // MEETUP
+        else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new configGUI(plugin).uhc_meetup().getItemMeta().getDisplayName())) {
+            e.getWhoClicked().sendMessage(plugin.prefixMsg + "La configuration " + ChatColor.GOLD + "UHC Meetup " + ChatColor.DARK_GRAY + "viens d'etre selectionee");
+            // BORDER
+            border.INITIAL_SIZE.set(500);
+            border.FINAL_SIZE.set(100);
+            // STUFF
+            Inventory inventory = Bukkit.createInventory(null, 36, "meetup");
+            inventory.addItem(new ItemStack(Material.DIAMOND_SWORD));
+            inventory.addItem(new ItemStack(Material.WOOD, 64));
+            inventory.addItem(new ItemStack(Material.WATER_BUCKET));
+            inventory.addItem(new ItemStack(Material.WATER_BUCKET));
+            inventory.addItem(new ItemStack(Material.GOLDEN_APPLE, 6));
+            plugin.starterInventory = inventory.getContents();
+            Inventory armorInventory = Bukkit.createInventory(null, 9, "meetup");
+            armorInventory.addItem(new ItemStack(Material.DIAMOND_BOOTS));
+            armorInventory.addItem(new ItemStack(Material.DIAMOND_LEGGINGS));
+            armorInventory.addItem(new ItemStack(Material.DIAMOND_CHESTPLATE));
+            armorInventory.addItem(new ItemStack(Material.DIAMOND_HELMET));
+            plugin.starterArmor = armorInventory.getContents();
+            // TIMERS
+            timers.PVE.setTime(30);
+            timers.PVP.setTime(60);
+            timers.BORDER.setTime(5 * 60);
+            timers.MEETUP.setTime(10 * 60);
         }
     }
 
@@ -279,7 +310,7 @@ public class inventoryClick implements Listener {
                 timers.MEETUP.setTime(Math.max(timers.MEETUP.getTime() - 1, 1));
                 break;
             case 40:
-                timers.MEETUP.setTime(80*60);
+                timers.MEETUP.setTime(80 * 60);
                 break;
             case 41:
                 timers.MEETUP.setTime(timers.MEETUP.getTime() + 1);

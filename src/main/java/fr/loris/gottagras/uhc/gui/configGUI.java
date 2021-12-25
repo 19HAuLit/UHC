@@ -26,13 +26,22 @@ public class configGUI {
     public Inventory inventory() {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.DARK_GRAY + "Configuration");
         inventory.setItem(10, uhc_classico());
+        inventory.setItem(11, uhc_meetup());
         return inventory;
     }
 
     public ItemStack uhc_classico() {
-        ItemStack itemStack = new ItemStack(Material.GOLDEN_APPLE);
+        ItemStack itemStack = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(ChatColor.GOLD + "Classico");
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public ItemStack uhc_meetup() {
+        ItemStack itemStack = new ItemStack(Material.GOLDEN_APPLE);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.GOLD + "Meetup");
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

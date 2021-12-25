@@ -29,6 +29,15 @@ public class settingsGUI {
         inventory.setItem(11, new stuffGUI(plugin).item());
         inventory.setItem(13, new configGUI(plugin).item());
         inventory.setItem(15, new timersGUI(plugin).item());
+        inventory.setItem(26, startUHC());
         return inventory;
+    }
+
+    public ItemStack startUHC() {
+        ItemStack itemStack = new ItemStack(Material.DIAMOND_SWORD);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatColor.GOLD + "Lancer l'UHC");
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
     }
 }

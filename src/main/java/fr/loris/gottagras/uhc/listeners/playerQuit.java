@@ -24,6 +24,8 @@ public class playerQuit implements Listener {
         e.setQuitMessage(plugin.prefixMsg + ChatColor.RED + e.getPlayer().getName() + ChatColor.GRAY + " vient de nous quitter !");
         switch (plugin.statue) {
             case WAITING:
+            case STARTING:
+            case TELEPORTING:
                 new teams(plugin).quitAllTeams(e.getPlayer());
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     if (Objects.equals(players.getOpenInventory().getTopInventory().getName(), new teamsGUI(plugin).inventory().getName())) {

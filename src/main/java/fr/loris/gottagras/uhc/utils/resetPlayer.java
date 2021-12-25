@@ -36,6 +36,7 @@ public class resetPlayer {
     }
 
     public void resetHeal(Player player) {
+        player.setMaxHealth(20);
         player.setHealthScale(20);
         player.setHealth(20);
     }
