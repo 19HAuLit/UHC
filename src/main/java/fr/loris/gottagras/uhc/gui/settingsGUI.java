@@ -28,6 +28,7 @@ public class settingsGUI {
         inventory.setItem(10, new borderGUI(plugin).item());
         inventory.setItem(11, new stuffGUI(plugin).item());
         inventory.setItem(13, new configGUI(plugin).item());
+        inventory.setItem(15, new timersGUI(plugin).item());
         return inventory;
     }
 }
