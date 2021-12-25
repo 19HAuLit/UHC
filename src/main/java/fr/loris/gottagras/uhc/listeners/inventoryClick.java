@@ -1,10 +1,7 @@
 package fr.loris.gottagras.uhc.listeners;
 
 import fr.loris.gottagras.uhc.UHC;
-import fr.loris.gottagras.uhc.gui.borderGUI;
-import fr.loris.gottagras.uhc.gui.settingsGUI;
-import fr.loris.gottagras.uhc.gui.stuffGUI;
-import fr.loris.gottagras.uhc.gui.teamsGUI;
+import fr.loris.gottagras.uhc.gui.*;
 import fr.loris.gottagras.uhc.infos.border;
 import fr.loris.gottagras.uhc.infos.server;
 import fr.loris.gottagras.uhc.utils.mysql;
@@ -14,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.sql.SQLException;
 import java.util.Objects;
@@ -50,6 +49,10 @@ public class inventoryClick implements Listener {
                 else if (Objects.equals(e.getClickedInventory().getName(), new stuffGUI(plugin).inventory().getName())) {
                     stuffGUI(e);
                 }
+                // CONFIG
+                else if (Objects.equals(e.getClickedInventory().getName(), new configGUI(plugin).inventory().getName())) {
+                    configGUI(e);
+                }
             }
         }
     }
@@ -72,15 +75,16 @@ public class inventoryClick implements Listener {
     }
 
     public void settingsGUI(InventoryClickEvent e) {
+        String playerRank = null;
+        try {
+            playerRank = new mysql(plugin).getRank(((Player) e.getWhoClicked()));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        boolean permAdminOrHost = Objects.equals(playerRank, "Admin") || Objects.equals(playerRank, "Host");
         // BORDER
         if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new borderGUI(plugin).item().getItemMeta().getDisplayName())) {
-            String playerRank = null;
-            try {
-                playerRank = new mysql(plugin).getRank(((Player) e.getWhoClicked()));
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-            if (Objects.equals(playerRank, "Admin") || Objects.equals(playerRank, "Host")) {
+            if (permAdminOrHost) {
                 e.getWhoClicked().openInventory(new borderGUI(plugin).inventory());
             }
         }
@@ -90,6 +94,12 @@ public class inventoryClick implements Listener {
                 ((Player) e.getWhoClicked()).chat("/stuff modify");
                 e.getWhoClicked().closeInventory();
             } else e.getWhoClicked().openInventory(new stuffGUI(plugin).inventory());
+        }
+        // CONFIG
+        else if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new configGUI(plugin).item().getItemMeta().getDisplayName())) {
+            if (permAdminOrHost) {
+                e.getWhoClicked().openInventory(new configGUI(plugin).inventory());
+            }
         }
     }
 
@@ -158,5 +168,19 @@ public class inventoryClick implements Listener {
 
     public void stuffGUI(InventoryClickEvent e) {
         e.getWhoClicked().openInventory(new stuffGUI(plugin).inventory());
+    }
+
+    public void configGUI(InventoryClickEvent e) {
+        if (Objects.equals(e.getCurrentItem().getItemMeta().getDisplayName(), new configGUI(plugin).uhc_classico().getItemMeta().getDisplayName())) {
+            e.getWhoClicked().sendMessage(plugin.prefixMsg + "La configuration " + ChatColor.GOLD + "UHC Classico " + ChatColor.DARK_GRAY + "viens d'etre selectionee");
+            Inventory classicoInventory = Bukkit.createInventory(null, 36, "classico");
+            classicoInventory.addItem(new ItemStack(Material.STONE_AXE));
+            classicoInventory.addItem(new ItemStack(Material.STONE_PICKAXE));
+            classicoInventory.addItem(new ItemStack(Material.WATER_BUCKET));
+            classicoInventory.addItem(new ItemStack(Material.WATER_BUCKET));
+            classicoInventory.addItem(new ItemStack(Material.BOOK, 6));
+            plugin.starterInventory = classicoInventory.getContents();
+            plugin.starterArmor = null;
+        }
     }
 }
