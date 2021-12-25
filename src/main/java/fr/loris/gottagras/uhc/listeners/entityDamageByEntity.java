@@ -38,19 +38,16 @@ public class entityDamageByEntity implements Listener {
                     Player damager = ((Player) e.getDamager());
                     Bukkit.broadcastMessage(plugin.prefixMsg + player.getPlayerListName() + ChatColor.GRAY + " viens d'etre tuer par " + damager.getPlayerListName());
                     new game(plugin).updateKills(damager);
-                }
-                else if (e.getDamager() instanceof Projectile) {
+                } else if (e.getDamager() instanceof Projectile) {
                     if (((Projectile) e.getDamager()).getShooter() instanceof Player) {
                         Player damager = ((Player) ((Projectile) e.getDamager()).getShooter());
                         Bukkit.broadcastMessage(plugin.prefixMsg + player.getPlayerListName() + " viens d'etre tuer par " + damager.getPlayerListName());
                         new game(plugin).updateKills(damager);
-                    }
-                    else{
+                    } else {
                         Bukkit.broadcastMessage(plugin.prefixMsg + player.getPlayerListName() + " viens d'etre tuer par une " + e.getDamager().getName());
                         new game(plugin).updateKillsPvE();
                     }
-                }
-                else{
+                } else {
                     Bukkit.broadcastMessage(plugin.prefixMsg + player.getPlayerListName() + " viens d'etre tuer par un " + e.getDamager().getName());
                     new game(plugin).updateKillsPvE();
                 }

@@ -2,6 +2,7 @@ package fr.loris.gottagras.uhc;
 
 import fr.loris.gottagras.uhc.infos.server;
 import fr.loris.gottagras.uhc.infos.state;
+import fr.loris.gottagras.uhc.timers.scoreboardUpdater;
 import fr.loris.gottagras.uhc.timers.timePlayedUpdater;
 import fr.loris.gottagras.uhc.utils.*;
 import org.bukkit.Bukkit;
@@ -54,7 +55,12 @@ public final class UHC extends JavaPlugin {
 
         // START TIMERS
         Bukkit.getScheduler().runTaskTimer(this, new timePlayedUpdater(this), 0, 20);
+        Bukkit.getScheduler().runTaskTimer(this, new scoreboardUpdater(this), 0, 20);
 
+        // REGISTER OBJECTIVE
+        new scoreboardUpdater(this).registerObjective();
+
+        // UPDATE STATUE
         statue = state.WAITING;
     }
 

@@ -4,6 +4,7 @@ import fr.loris.gottagras.uhc.UHC;
 import fr.loris.gottagras.uhc.infos.server;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
@@ -136,5 +137,24 @@ public class teams {
             }
         }
         return false;
+    }
+
+    public int numberOfAliveTeams() {
+        int numberOfAliveTeams = 0;
+        for (Team team : plugin.scoreboard.getTeams()) {
+            if (team.getName().startsWith("uhc_team_")) {
+                boolean teamAlive = false;
+                for (OfflinePlayer offlinePlayer : team.getPlayers()) {
+                    if (offlinePlayer.isOnline()) {
+                        Player player = offlinePlayer.getPlayer();
+                        if (player.getGameMode() == GameMode.SURVIVAL) {
+                            teamAlive = true;
+                        }
+                    }
+                }
+                if (teamAlive) numberOfAliveTeams++;
+            }
+        }
+        return numberOfAliveTeams;
     }
 }
