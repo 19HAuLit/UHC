@@ -11,6 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.Objects;
+
 public class playerInteract implements Listener {
     private final UHC plugin;
 
@@ -23,13 +25,12 @@ public class playerInteract implements Listener {
         // ITEM INTERACT
         if (e.getItem() != null) {
             if (e.getItem().hasItemMeta()) {
-                String itemName = e.getItem().getItemMeta().getDisplayName();
                 // OPEN TEAM GUI
-                if (itemName.equals(new teamsGUI(plugin).item().getItemMeta().getDisplayName())) {
+                if (Objects.equals(e.getItem().getItemMeta().getDisplayName(), new teamsGUI(plugin).item().getItemMeta().getDisplayName())) {
                     e.getPlayer().openInventory(new teamsGUI(plugin).inventory());
                 }
                 // OPEN SETTINGS GUI
-                else if (itemName.equals(new settingsGUI(plugin).item().getItemMeta().getDisplayName())) {
+                else if (Objects.equals(e.getItem().getItemMeta().getDisplayName(), new settingsGUI(plugin).item().getItemMeta().getDisplayName())) {
                     e.getPlayer().openInventory(new settingsGUI(plugin).inventory());
                 }
             }
